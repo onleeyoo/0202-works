@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>0202 Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{--bg:#f6f6f8;--card:#fff;--fg:#151618;--muted:#6b6f78;--line:#e6e7eb;--panel:#f3f4f6;--blue:#3d63dd;--serif:"Noto Serif KR",Georgia,serif;--sans:Pretendard,-apple-system,"Apple SD Gothic Neo",sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1012;--card:#17181b;--fg:#ececee;--muted:#9a9ea7;--line:#2a2c31;--panel:#1f2125}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px}
+.gate{min-height:100vh;display:grid;place-items:center;padding:16px}
+.gate form{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:36px 32px;width:min(100%,360px);display:flex;flex-direction:column;gap:14px;text-align:center}
+.gate h1{font-family:var(--serif);font-weight:400;margin:0;font-size:28px}
+.gate p{margin:0;color:var(--muted);font-size:13px}
+.gate input{font:inherit;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);text-align:center;letter-spacing:.3em}
+.gate button{font:inherit;padding:12px;border:0;border-radius:10px;background:var(--blue);color:#fff;cursor:pointer}
+.gate .err{color:#d33;min-height:1em}
+.frame{max-width:1440px;margin:24px auto;background:var(--card);border:1px solid var(--line);border-radius:22px;display:grid;grid-template-columns:15rem minmax(0,1fr);min-height:calc(100vh - 48px);overflow:hidden}
+.side{border-right:1px solid var(--line);padding:32px 16px;display:flex;flex-direction:column;gap:22px}
+.brand{font-family:var(--serif);font-size:26px;margin:0 8px}
+.brand small{display:block;font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:4px}
+nav{display:flex;flex-direction:column;gap:4px}
+nav button{display:flex;align-items:center;gap:10px;font:inherit;text-align:left;border:0;background:none;color:var(--fg);padding:11px 14px;border-radius:10px;cursor:pointer}
+nav button:hover{background:var(--panel)}
+nav button.on{background:var(--blue);color:#fff}
+nav button.on .cnt{background:rgba(255,255,255,.22);color:#fff}
+nav svg{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+nav .lbl{flex:1}
+.cnt{font-size:12px;background:var(--panel);color:var(--muted);border-radius:999px;padding:0 8px;min-width:1.4em;text-align:center}
+.sep{height:1px;background:var(--line);margin:0 8px}
+.legend{display:flex;flex-direction:column;gap:9px;padding:0 10px;font-size:13px}
+.legend p{margin:0 0 2px;color:var(--muted);font-size:12px}
+.legend span{display:flex;align-items:center;gap:9px}
+.legend i,.area i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.side .foot{margin-top:auto;padding:0 10px;font-size:12px;color:var(--muted)}
+.side .foot button{font:inherit;background:none;border:0;color:var(--muted);cursor:pointer;padding:0;text-decoration:underline}
+main{padding:36px clamp(16px,3vw,40px);min-width:0}
+.date{color:var(--muted);margin:0}
+.hi{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4vw,42px);margin:6px 0 0;line-height:1.2}
+.stats{display:flex;flex-wrap:wrap;gap:16px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:13px 24px;width:fit-content;max-width:100%;margin-top:22px}
+.stat{display:flex;align-items:baseline;gap:6px;padding-right:16px;border-right:1px solid var(--line)}
+.stat:last-child{border:0;padding:0}
+.stat b{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,24rem),1fr));gap:16px;margin-top:28px}
+.card{border:1px solid var(--line);border-radius:14px;background:var(--card);overflow:hidden;min-width:0}
+.card.wide{grid-column:1/-1}
+.ch{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:16px 22px;border-bottom:1px solid var(--line)}
+.ch h2{margin:0;font-size:18px;font-weight:600;flex:1}
+.ch .note{color:var(--muted);font-size:13px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chips button{font:inherit;font-size:13px;padding:4px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer}
+.chips button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-weight:600;padding:12px 22px;background:var(--panel);border-bottom:1px solid var(--line)}
+td{padding:14px 22px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.t{font-weight:600}
+td.t small{display:block;color:var(--muted);font-weight:400;font-size:12px;margin-top:2px}
+td.n,td.d{color:var(--muted)}
+td.d{font-size:13px;white-space:nowrap}
+.empty td{color:var(--muted);text-align:center;font-size:13px}
+.pill{display:inline-block;font-size:12.5px;padding:3px 12px;border-radius:999px;white-space:nowrap;font-weight:500}
+.p-진행중{background:#c9f0cf;color:#17612a}.p-대기{background:#f2c9f0;color:#7c1f78}.p-아이디어{background:#e4e0ff;color:#4b3aa8}.p-완료{background:var(--blue);color:#fff}
+.notes{list-style:none;margin:0;padding:4px 22px}
+.notes li{display:flex;gap:12px;padding:14px 0;border-bottom:1px dashed var(--line)}
+.notes li:last-child{border:0}
+.notes .o{width:20px;height:20px;border-radius:50%;border:1.6px solid var(--muted);flex:none;margin-top:2px}
+.notes b{display:block;font-weight:600}
+.notes span{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,11rem),1fr));gap:10px;padding:22px}
+.area{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--card);font:inherit;text-align:left;color:var(--fg);cursor:pointer}
+.area:hover{border-color:var(--blue)}
+.area .nm{display:flex;align-items:center;gap:8px;font-weight:600}
+.area .big{font-family:var(--serif);font-size:30px;display:block;margin-top:6px}
+.area .sm{color:var(--muted);font-size:12px}
+.c1{background:#9b4fd8}.c2{background:#3d63dd}.c3{background:#e8649a}.c4{background:#4cbf6b}
+[hidden]{display:none!important}
+@media (max-width:760px){
+ .frame{grid-template-columns:1fr;margin:0;border-radius:0;border:0}
+ .side{border-right:0;border-bottom:1px solid var(--line);padding:16px}
+ nav{flex-direction:row;overflow-x:auto}
+ nav button{white-space:nowrap}
+ .sep,.legend,.side .foot{display:none}
+ .col-d{display:none}
+}
+</style>
+</head>
+<body>
+<div class="gate" id="gate">
+  <form id="gf">
+    <h1>0202 Works</h1>
+    <p>비밀번호를 입력하세요</p>
+    <input id="pw" type="password" inputmode="numeric" autocomplete="current-password" autofocus>
+    <button type="submit">열기</button>
+    <p class="err" id="err"></p>
+  </form>
+</div>
+
+<div class="frame" id="app" hidden>
+  <aside class="side">
+    <p class="brand">0202 Works<small>Jjang × Claude 작업판</small></p>
+    <nav>
+      <button data-tab="home" class="on"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg><span class="lbl">대시보드</span></button>
+      <button data-tab="프리미어 플러그인"><svg viewBox="0 0 24 24"><path d="M9 3v4M15 3v4M7 7h10v5a5 5 0 0 1-10 0z"/><path d="M12 17v4"/></svg><span class="lbl">프리미어 플러그인</span><span class="cnt"></span></button>
+      <button data-tab="0202PD 웹·서비스"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span class="lbl">0202PD 서비스</span><span class="cnt"></span></button>
+      <button data-tab="인스타"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg><span class="lbl">인스타</span><span class="cnt"></span></button>
+      <button data-tab="블로그"><svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg><span class="lbl">블로그</span><span class="cnt"></span></button>
+    </nav>
+    <div class="sep"></div>
+    <div class="legend"><p>주제</p><span><i class="c1"></i>프리미어 플러그인</span><span><i class="c2"></i>0202PD 서비스</span><span><i class="c3"></i>인스타</span><span><i class="c4"></i>블로그</span></div>
+    <div class="foot">업데이트 11.07 · <button id="lock">잠그기</button></div>
+  </aside>
+  <main id="main"></main>
+</div>
+
+<script>
+const ENC = {"salt": "x+MhJsgpopcuOnWMV75PaA==", "iv": "Wtj9p55bYfIWiCbL", "ct": "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", "iter": 200000};
+const AREAS = [['프리미어 플러그인','c1','0202Transition · Swatch · VideoHelper · Typewriter, 아이디에이션 문서 항목'],['0202PD 웹·서비스','c2','트렌드 사이트, 분석 서비스, 효과음 정리, 밈 리포트'],['인스타','c3','0202Transition 홍보, 자동응답, 자동 DM'],['블로그','c4','복쩡이 네이버 블로그 · 쓸 글과 진행 상황']];
+const ORDER = {'진행중':0,'대기':1,'아이디어':2,'완료':3};
+const b64 = (s) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
+let ITEMS = [], tab = 'home', filt = '';
+
+async function unlock(pw){
+  const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
+  const key = await crypto.subtle.deriveKey({name:'PBKDF2', salt:b64(ENC.salt), iterations:ENC.iter, hash:'SHA-256'}, base, {name:'AES-GCM', length:256}, false, ['decrypt']);
+  const buf = await crypto.subtle.decrypt({name:'AES-GCM', iv:b64(ENC.iv)}, key, b64(ENC.ct));
+  return JSON.parse(new TextDecoder().decode(buf));
+}
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+const pill = (s) => { const td = el('td'); td.append(el('span', 'pill p-' + s, s)); return td; };
+const fmt = (s) => { const d = new Date(s); return isNaN(d) ? s : (d.getMonth() + 1) + '월 ' + d.getDate() + '일'; };
+const open = (a) => ITEMS.filter((r) => r.area === a && r.status !== '완료').length;
+
+function table(rows, withArea, withDate){
+  const t = el('table'); const h = el('tr');
+  ['작업','다음 할 일','상태'].concat(withDate ? ['업데이트'] : []).forEach((x, i) => { const th = el('th', i === 3 ? 'col-d' : '', x); h.append(th); });
+  const th = el('thead'); th.append(h); t.append(th);
+  const tb = el('tbody'); t.append(tb);
+  if (!rows.length) { const tr = el('tr', 'empty'); const td = el('td', '', '해당 항목 없음'); td.colSpan = 4; tr.append(td); tb.append(tr); }
+  rows.forEach((r) => {
+    const tr = el('tr'); const tt = el('td', 't', r.title);
+    if (withArea) tt.append(el('small', '', r.area));
+    tr.append(tt, el('td', 'n', r.next), pill(r.status));
+    if (withDate) tr.append(el('td', 'd col-d', fmt(r.updated)));
+    tb.append(tr);
+  });
+  return t;
+}
+function card(title, note, body, wide){
+  const c = el('div', 'card' + (wide ? ' wide' : '')); const h = el('div', 'ch');
+  h.append(el('h2', '', title)); if (typeof note === 'string') h.append(el('span', 'note', note)); else h.append(note);
+  c.append(h, body); return c;
+}
+function render(){
+  document.querySelectorAll('nav button').forEach((b) => { b.classList.toggle('on', b.dataset.tab === tab); const c = b.querySelector('.cnt'); if (c) c.textContent = open(b.dataset.tab); });
+  const m = document.getElementById('main'); m.replaceChildren();
+  if (tab === 'home') {
+    m.append(el('p', 'date', new Date().toLocaleDateString('ko-KR', {year:'numeric', month:'long', day:'numeric', weekday:'long'})), el('h1', 'hi', '안녕하세요, Jjang!'));
+    const st = el('div', 'stats');
+    [['진행중','진행중'],['대기','결정·확인 대기'],['아이디어','아이디어'],['완료','완료']].forEach(([s, l]) => { const d = el('div', 'stat'); d.append(el('b', '', ITEMS.filter((r) => r.status === s).length), el('span', '', l)); st.append(d); });
+    m.append(st);
+    const g = el('div', 'grid');
+    g.append(card('지금 진행 중', '모든 주제', table(ITEMS.filter((r) => r.status === '진행중'), true, false), true));
+    const ar = el('div', 'areas');
+    AREAS.forEach(([a, c]) => { const b = el('button', 'area'); const nm = el('span', 'nm'); nm.append(el('i', c), document.createTextNode(a)); b.append(nm, el('span', 'big', open(a)), el('span', 'sm', '진행·대기·아이디어')); b.onclick = () => go(a); ar.append(b); });
+    g.append(card('주제별', '열린 항목 수', ar));
+    const ul = el('ul', 'notes');
+    ITEMS.filter((r) => r.status === '대기').forEach((r) => { const li = el('li'); const box = el('div'); box.append(el('b', '', r.title), el('span', '', r.next)); li.append(el('i', 'o'), box); ul.append(li); });
+    g.append(card('결정할 것', '대기 중인 항목', ul));
+    m.append(g);
+  } else {
+    const info = AREAS.find((x) => x[0] === tab);
+    m.append(el('h1', 'hi', tab === '블로그' ? '블로그 작성 리스트' : tab), el('p', 'date', info[2]));
+    const chips = el('div', 'chips');
+    ['', '진행중', '대기', '아이디어', '완료'].forEach((s) => { const b = el('button', s === filt ? 'on' : '', s || '전체'); b.onclick = () => { filt = s; render(); }; chips.append(b); });
+    const rows = ITEMS.filter((r) => r.area === tab && (!filt || r.status === filt)).sort((a, b) => (ORDER[a.status] - ORDER[b.status]) || (b.updated > a.updated ? 1 : -1));
+    const g = el('div', 'grid'); g.append(card('전체 목록', chips, table(rows, false, true), true)); m.append(g);
+  }
+}
+function go(t){ tab = t; filt = ''; history.replaceState(null, '', '#' + encodeURIComponent(t)); render(); window.scrollTo(0, 0); }
+document.querySelectorAll('nav button').forEach((b) => b.onclick = () => go(b.dataset.tab));
+
+async function start(pw, remember){
+  ITEMS = await unlock(pw);
+  if (remember) try { localStorage.setItem('w0202', pw); } catch (e) {}
+  document.getElementById('gate').hidden = true; document.getElementById('app').hidden = false;
+  const h = decodeURIComponent(location.hash.slice(1)); if (h === 'home' || AREAS.some((a) => a[0] === h)) tab = h;
+  render();
+}
+document.getElementById('gf').onsubmit = async (e) => {
+  e.preventDefault();
+  try { await start(document.getElementById('pw').value, true); } catch (x) { document.getElementById('err').textContent = '비밀번호가 맞지 않아요'; }
+};
+document.getElementById('lock').onclick = () => { try { localStorage.removeItem('w0202'); } catch (e) {} location.reload(); };
+try { const s = localStorage.getItem('w0202'); if (s) start(s, false).catch(() => localStorage.removeItem('w0202')); } catch (e) {}
+</script>
+</body>
+</html>
