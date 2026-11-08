@@ -86,6 +86,9 @@ h1.hi{font-size:clamp(30px,4vw,46px);font-weight:600;letter-spacing:-.035em;marg
 .kind{font-weight:600;font-size:16px;padding:2px 0}
 .gl li>.pill{margin-top:1px;min-width:72px;text-align:center}
 .gl li>.d{min-width:52px;text-align:right}
+.dbtn{margin-top:8px;border:1px solid #d7d9de;background:#fff;border-radius:999px;padding:3px 12px;font-size:13px;cursor:pointer;color:var(--fg)}
+.dbtn:hover{border-color:var(--blue);color:var(--blue)}
+.dbox{margin-top:10px;background:var(--head);border:1px solid var(--line);border-radius:12px;padding:14px 16px;white-space:pre-wrap;font-size:14px;line-height:1.65;color:#33363c}
 .gn{color:var(--muted);font-size:13.5px}
 .gl{margin:0;padding:0 0 0 26px;border-left:2px solid var(--line);margin-left:14px;list-style:none;counter-reset:n}
 .gl li{counter-increment:n;display:flex;align-items:flex-start;gap:12px;padding:10px 0 10px 4px;position:relative}
@@ -355,6 +358,11 @@ function areaPage(m){
         const li = el('li'); const tx = el('div', 'gt');
         tx.append(document.createTextNode(r.title)); if (fresh(r)) tx.append(el('span', 'tag', r.change || '업데이트'));
         tx.append(el('span', 'sub', r.next));
+        if (r.detail) {
+          const bt = el('button', 'dbtn', '대본·기획 보기'); const pre = el('div', 'dbox', r.detail); pre.hidden = true;
+          bt.onclick = () => { pre.hidden = !pre.hidden; bt.textContent = pre.hidden ? '대본·기획 보기' : '접기'; };
+          tx.append(bt, pre);
+        }
         li.append(tx); if (byKind) li.append(el('span', 'pill p-' + r.status, r.status)); li.append(el('span', 'd', fmt(r.updated))); ol.append(li);
       });
       grp.append(ol); tree.append(grp);
