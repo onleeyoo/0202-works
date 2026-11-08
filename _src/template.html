@@ -83,6 +83,9 @@ h1.hi{font-size:clamp(30px,4vw,46px);font-weight:600;letter-spacing:-.035em;marg
 .grp{padding:12px 0 4px;border-bottom:1px dashed var(--line)}
 .grp:last-child{border-bottom:0}
 .gh{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.kind{font-weight:600;font-size:16px;padding:2px 0}
+.gl li>.pill{margin-top:1px;min-width:72px;text-align:center}
+.gl li>.d{min-width:52px;text-align:right}
 .gn{color:var(--muted);font-size:13.5px}
 .gl{margin:0;padding:0 0 0 26px;border-left:2px solid var(--line);margin-left:14px;list-style:none;counter-reset:n}
 .gl li{counter-increment:n;display:flex;align-items:flex-start;gap:12px;padding:10px 0 10px 4px;position:relative}
@@ -341,17 +344,19 @@ function areaPage(m){
     h.append(el('span', 'cnt2', tr.filter((r) => r.status === '완료').length + ' / ' + tr.length + ' 완료'));
     c.append(h);
     const tree = el('div', 'tree');
-    ['진행중', '대기', '아이디어', '완료'].forEach((st) => {
-      const g = shown.filter((r) => r.status === st).sort((x, y) => y.updated > x.updated ? 1 : -1);
+    const byKind = tr.some((r) => r.kind);
+    const groups = byKind ? ['릴스', '캐러셀', '미분류'] : ['진행중', '대기', '아이디어', '완료'];
+    groups.forEach((st) => {
+      const g = shown.filter((r) => byKind ? (r.kind || '미분류') === st : r.status === st).sort((x, y) => (ORDER[x.status] - ORDER[y.status]) || (y.updated > x.updated ? 1 : -1));
       if (!g.length) return;
       const grp = el('div', 'grp');
-      const gh = el('div', 'gh'); gh.append(el('span', 'pill p-' + st, st), el('span', 'gn', g.length + '개')); grp.append(gh);
+      const gh = el('div', 'gh'); gh.append(byKind ? el('span', 'kind', st) : el('span', 'pill p-' + st, st), el('span', 'gn', g.length + '개')); grp.append(gh);
       const ol = el('ol', 'gl');
       g.forEach((r) => {
         const li = el('li'); const tx = el('div', 'gt');
         tx.append(document.createTextNode(r.title)); if (fresh(r)) tx.append(el('span', 'tag', r.change || '업데이트'));
         tx.append(el('span', 'sub', r.next));
-        li.append(tx, el('span', 'd', fmt(r.updated))); ol.append(li);
+        li.append(tx); if (byKind) li.append(el('span', 'pill p-' + r.status, r.status)); li.append(el('span', 'd', fmt(r.updated))); ol.append(li);
       });
       grp.append(ol); tree.append(grp);
     });
