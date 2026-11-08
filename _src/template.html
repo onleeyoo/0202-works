@@ -79,6 +79,7 @@ h1.hi{font-size:clamp(30px,4vw,46px);font-weight:600;letter-spacing:-.035em;marg
 .ch{display:flex;align-items:center;gap:14px;padding:18px 24px;flex-wrap:wrap}
 .ch h2{margin:0;font-size:22px;font-weight:600;letter-spacing:-.025em;display:flex;align-items:center;gap:12px}
 .ch .sp{flex:1}
+.cnt2{margin-left:auto;color:var(--muted);font-size:14px}
 .sel{position:relative}
 .sel select{appearance:none;-webkit-appearance:none;border:1px solid #d7d9de;background:#fff;border-radius:8px;padding:7px 34px 7px 14px;font:inherit;font-size:15px;cursor:pointer;color:var(--fg)}
 .sel::after{content:"";position:absolute;right:13px;top:50%;margin-top:-2px;border:5px solid transparent;border-top-color:#222;pointer-events:none}
@@ -95,6 +96,7 @@ h1.hi{font-size:clamp(30px,4vw,46px);font-weight:600;letter-spacing:-.035em;marg
 .tcell{display:flex;align-items:center;gap:12px;color:#33363c}
 .tcell svg{color:#4b4e56}
 .tcell .meta{margin-left:auto;display:flex;gap:14px;color:var(--muted);font-size:14px;white-space:nowrap}
+.tag{display:inline-block;margin-left:8px;font-size:11.5px;font-weight:600;color:var(--blue);background:#e8eefc;border-radius:5px;padding:1px 6px;vertical-align:2px}
 .sub{display:block;color:var(--muted);font-size:13.5px;margin-top:3px}
 .who{display:flex;align-items:center;gap:12px;white-space:nowrap}
 .who i{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:600;color:#2b2d31}
@@ -229,6 +231,7 @@ const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls)
 const html = (tag, cls, h) => { const e = el(tag, cls); e.innerHTML = h; return e; };
 const fmt = (s) => { const d = new Date(s + 'T00:00:00'); return isNaN(d) ? s : (d.getMonth() + 1) + '월 ' + d.getDate() + '일'; };
 const iso = (d) => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+const fresh = (r) => { if (!r.changed) return false; const d = new Date(r.changed + 'T00:00:00'); return (Date.now() - d) / 864e5 < 2; };
 const openN = (k) => ITEMS.filter((r) => r.area === k && r.status !== '완료').length;
 const sorted = (rows) => rows.slice().sort((a, b) => (ORDER[a.status] - ORDER[b.status]) || (b.updated > a.updated ? 1 : -1));
 
@@ -257,8 +260,8 @@ function table(rows, opts){
   rows.forEach((r) => {
     const a = area(r.area); const tr = el('tr');
     const c1 = el('td'); const tc = html('div', 'tcell', svg(a.ic)); const tx = el('div');
-    tx.append(document.createTextNode(r.title), el('span', 'sub', r.next)); tc.append(tx); c1.append(tc); tr.append(c1);
-    if (opts.area) { const c = el('td', 'col-x'); const w = html('div', 'who', '<i class="' + a.c + '"></i>'); w.append(document.createTextNode(a.name)); c.append(w); tr.append(c); }
+    tx.append(document.createTextNode(r.title)); if (fresh(r)) tx.append(el('span', 'tag', r.change || '업데이트')); tx.append(el('span', 'sub', r.next)); tc.append(tx); c1.append(tc); tr.append(c1);
+    if (opts.area) { const c = el('td', 'col-x'); const w = html('div', 'who', '<i class="' + a.c + '"></i>'); const tw = el('div'); tw.append(document.createTextNode(r.topic || a.name), el('span', 'sub', a.name)); w.append(tw); c.append(w); tr.append(c); }
     if (opts.date) tr.append(el('td', 'd col-x', fmt(r.updated)));
     const cs = el('td'); cs.append(el('span', 'pill p-' + r.status, r.status)); tr.append(cs);
     tb.append(tr);
@@ -319,9 +322,17 @@ function areaPage(m){
   const st = el('div', 'stats');
   [['hour','진행중'],['note','대기'],['clock','아이디어'],['check','완료']].forEach(([i, s]) => { const d = html('div', 'stat', svg(i)); d.append(el('b', '', rows.filter((r) => r.status === s).length), el('span', '', s)); st.append(d); });
   m.append(st);
-  const c = el('div', 'card'); const h = cardHead(a.ic, '전체 목록');
-  h.append(select(filt, (v) => { filt = v; render(); }, true));
-  c.append(h, table(sorted(rows.filter((r) => !filt || r.status === filt)), {date:true})); m.append(c);
+  const bar = el('div', 'ch'); bar.style.padding = '28px 0 0'; bar.append(el('span', 'sp'), select(filt, (v) => { filt = v; render(); }, true)); m.append(bar);
+  const topics = [...new Set(sorted(rows).map((r) => r.topic || '기타'))];
+  topics.forEach((tp) => {
+    const tr = rows.filter((r) => (r.topic || '기타') === tp);
+    const shown = sorted(tr.filter((r) => !filt || r.status === filt));
+    if (filt && !shown.length) return;
+    const c = el('div', 'card'); c.style.marginTop = '18px'; const h = cardHead(a.ic, tp);
+    const done = tr.filter((r) => r.status === '완료').length;
+    h.append(el('span', 'cnt2', done + ' / ' + tr.length + ' 완료'));
+    c.append(h, table(shown, {date:true})); m.append(c);
+  });
 }
 
 function searchPage(m){
