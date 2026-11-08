@@ -6,7 +6,7 @@
 
 items.json is a list of {id, area, topic, title, status, next, updated, changed?, change?}
   topic:   주제 (예: 0202Transition, 0202Swatch). 채팅 단위가 아니라 주제 단위로 묶는다
-  area:    프리미어 플러그인 | 0202PD 웹·서비스 | 인스타 | 블로그
+  area:    프리미어 플러그인 | 0202PD 웹·서비스 | 블로그
   status:  진행중 | 대기 | 아이디어 | 완료
   updated: YYYY-MM-DD (last time it was discussed)
   changed/change: date + label ("추가" / "상태 변경" / "내용 수정") shown as a tag for 2 days
@@ -22,7 +22,7 @@ ROOT = os.path.dirname(HERE)
 INDEX = os.path.join(ROOT, "index.html")
 TEMPLATE = os.path.join(HERE, "template.html")
 DEFAULT_JSON = os.path.join(HERE, "items.json")
-AREAS = {"프리미어 플러그인", "0202PD 웹·서비스", "인스타", "블로그"}
+AREAS = {"프리미어 플러그인", "0202PD 웹·서비스", "블로그"}
 STATUSES = {"진행중", "대기", "아이디어", "완료"}
 
 
